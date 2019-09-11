@@ -1,0 +1,147 @@
+<div class="container">
+    <a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de Estabelecimentos (deleção)</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+    <div class="container" *ngIf="(estabelecimento$ | async) as estabelecimento">
+        <mat-tab-group animationDuration="0ms">
+            <mat-tab label="Info Base">
+                <b>Estabelecimento*:</b> {{estabelecimento.dados.COD_ESTABELECIMENT}}<br>
+                <b>Descrição*:</b> {{estabelecimento.dados.DES_ESTABELECIMENT}}<br>
+                <b>CNPJ*:</b> {{estabelecimento.dados.CGC_ESTABELECIMENT}}<br>
+                <b>Logradouro*:</b> {{estabelecimento.dados.NOM_LOGRADOURO}}<br>
+                <b>Número*:</b> {{estabelecimento.dados.NRO_ESTABELECIMENT}}<br>
+                <b>Complemento:</b> {{estabelecimento.dados.DES_COMPLEMENTO}}<br>
+                <b>Bairro*:</b> {{estabelecimento.dados.NOM_BAIRRO}}<br>
+                <b>UF*:</b> {{estabelecimento.dados.SGL_UF}} - {{nomeUf}}<br>
+                <b>Nro Telefone:</b> {{estabelecimento.dados.NRO_TELEFONE}}<br>
+                <b>CEP*:</b> {{estabelecimento.dados.COD_CEP}}<br>
+                <b>Cod Cidade*:</b> {{estabelecimento.dados.COD_CIDADE_EST}}<br>
+                <b>Cidade*:</b> {{estabelecimento.dados.NOM_MUNICIPIO}}<br>
+                <b>Insc.Estadual*:</b> {{estabelecimento.dados.COD_INSCRIC_ESTADU}}<br>
+                <b>Insc.Municipal*:</b> {{estabelecimento.dados.COD_INSC_MUNICIPAL}}<br>
+                <b>No.junta comerc.:</b> {{estabelecimento.dados.NRO_JUNTA_COMERCIA}}<br>
+                <b>Dat.reg.:</b> {{estabelecimento.dados.DAT_REGISTRO_ESTAB}}<br>
+                <b>Nome fantasia*:</b> {{estabelecimento.dados.NOM_FANTASIA_ESTAB}}<br>
+                <b>Titular:</b> {{estabelecimento.dados.NOM_TITULAR_ESTAB}}<br>
+                <b>Nome contador:</b> {{estabelecimento.dados.NOM_CONTADOR}}<br>
+                <b>CRC contador:</b> {{estabelecimento.dados.COD_CRC_CONTADOR}}<br>
+                <b>UF contador:</b> {{estabelecimento.dados.SGL_UF_CRC_CONTAD}}<br>
+                <b>Retaguarda?*:</b> {{estabelecimento.dados.IDT_MATRIZ}}<br>
+                <b>Segmento*:</b> {{estabelecimento.dados.COD_SEGMENTO}} - {{desSegmentoEcon}}<br>
+                <b>Insc.suframa:</b> {{estabelecimento.dados.COD_INSCRI_SUFRAMA}}<br>
+                <b>Rep.fiscal:</b> {{estabelecimento.dados.COD_REPART_FISCAL}}<br>
+                <b>Cod Matriz*:</b> {{estabelecimento.dados.COD_MATRIZ}}<br>
+                <b>Incluir ST no custo de entrada?*:</b> {{estabelecimento.dados.IDT_CUSTO_ST}}<br>
+                <b>Logistica Reversa: Utiliza rota de ida como parametro rota de volta?(S/N/T)*:</b> {{estabelecimento.dados.IDT_LR_MESMAROTA}}<br>
+                <b>CD funciona como CT*:</b> {{estabelecimento.dados.IDT_CD_CT}}<br>
+                <b>Versao NFE:</b> {{estabelecimento.dados.COD_VER_NFE}}<br>
+            </mat-tab>
+            <mat-tab label="Parâmetros">
+                    <b>Tipo Estabelecimento*:</b> {{estabelecimento.dados.IDT_TIP_ESTAB}} - {{desTipoEstabelecimento}}<br>
+                    <!--
+                        case idt_tip_estab 
+                            when 'D'
+                                let des_tip_estab = 'Deposito'
+                            when 'L'
+                                let des_tip_estab = 'Loja'
+                            when 'M'
+                                let des_tip_estab = 'Matriz'
+                            when 'V'
+                                let des_tip_estab = 'Loja Virtual'
+                            when 'S'
+                                let des_tip_estab = 'Sac'
+                            when 'E'
+                                let des_tip_estab = 'Entreposto'
+                            when 'C'
+                                let des_tip_estab = 'Cd'
+                        end case
+                    -->
+                    <b>Mensagem cabecalho cupom:</b> {{estabelecimento.dados.DES_MENS_CABECALHO}}<br>
+                    <b>Primeira mensagem cupom:</b> {{estabelecimento.dados.DES_MENS_PROMOC1}}<br>
+                    <b>Segunda  mensagem cupom:</b> {{estabelecimento.dados.DES_MENS_PROMOC2}}<br>
+                    <b>Efetua compras?</b> {{estabelecimento.dados.IDC_FAZ_COMPRA}}<br>
+                    <b>Perc. negociacao entrada:</b> {{estabelecimento.dados.PER_NEGOC_ENTRADA}}<br>
+                    <b>Nro dias negociacao pre-data:</b> {{estabelecimento.dados.NRO_DIAS_NEGOC_PRE}}<br>
+                    <b>Local cobranca?</b> {{estabelecimento.dados.IDC_LOCAL_COBRANCA}}<br>
+                    <b>Limite maior atraso:</b> {{estabelecimento.dados.LIM_MAIOR_ATRASO}}<br>
+                    <b>Cadast. cheques dep. imediato?</b> {{estabelecimento.dados.IDC_CAD_CHEQUE}}<br>
+                    <b>Loja Franqueada:</b> {{estabelecimento.dados.IDC_FRANQUEADA}}<br><br>
+                    <b>Nro Último Sequencial:</b> {{estabelecimento.dados.NRO_ULTIMO_SEQ}}<br>
+                    <b>Nro Último Cliente:</b> {{estabelecimento.dados.NRO_ULT_CLIENTE}}<br>
+                    <b>Nro Último Empresa:</b> {{estabelecimento.dados.NRO_ULT_EMPRESA}}<br>
+                    <b>Nro Último Contrato:</b> {{estabelecimento.dados.NRO_ULT_CONTRATO}}<br>
+                    <b>Nro Último Protocolo:</b> {{estabelecimento.dados.NRO_ULT_PROTOCOLO}}<br>
+                    <b>Valor de Repasse:</b> {{estabelecimento.dados.VLR_REPASSE}}<br>
+                    <b>Banco Depósito:</b> {{estabelecimento.dados.COD_BANCO_DEP}}<br>
+                    <b>Agência Depósito:</b> {{estabelecimento.dados.COD_AGENCIA_DEP}}<br>
+                    <b>Conta Depósito:</b> {{estabelecimento.dados.NRO_CONTA_DEP}}<br>
+                    <b>Franqueado:</b> {{estabelecimento.dados.COD_FRANQUEADO}} - {{nomeFranqueado}}<br>
+                    <b>Nro dias maquineta imed:</b> {{estabelecimento.dados.NRO_DIAS_MAQ_IMED}}<br>
+                    <b>Captura e-mail cliente?</b> {{estabelecimento.dados.IDT_CAPTURA_EMAIL}}<br>
+            </mat-tab>
+            <mat-tab label="Financeiro">
+                    <b>Valor limite sangria:</b> {{estabelecimento.dados.VLR_LIMITE_SANGRIA}}<br>
+                    <b>Valor abertura caixa:</b> {{estabelecimento.dados.VLR_ABERTURA_PDVS}}<br>
+                    <b>Valor limite ressuprimento:</b> {{estabelecimento.dados.VLR_LIMITE_RESSUP}}<br>
+                    <b>Nro Parcelas p/ Etq.Preco:</b> {{estabelecimento.dados.NRO_PARCELAS_ETQ}}<br>
+                    <b>Vlr Min Parcela Etq Preco:</b> {{estabelecimento.dados.VLR_MINIMO_ETQ}}<br>
+                    <b>Códigos correspondentes Scope Itautec(TEF):</b><br>
+                    <b>Empresa:</b> {{estabelecimento.dados.COD_EMPRESA_SCOPE}}<br>
+                    <b>Filial:</b> {{estabelecimento.dados.COD_ESTAB_SCOPE}}<br><br>
+                    <b>Sportcard:</b><br>
+                    <b>Cod. Convenio CBO:</b> {{estabelecimento.dados.COD_CONVENIO_CBO}}<br>
+                    <b>Cod. Agencia:</b> {{estabelecimento.dados.COD_AGENCIA_BB}}<br>
+                    <b>Nro. Estabelecimento:</b> {{estabelecimento.dados.NRO_ESTAB_BB}}<br>
+                    <b>Cod. Convenio PCA:</b> {{estabelecimento.dados.COD_CONVENIO_PCA}}<br>
+                    <b>Cod.Localidade(Bradescard):</b> {{estabelecimento.dados.COD_LOC_BRADESCARD}}<br>
+            </mat-tab>
+            <mat-tab label="Comercial">
+                    <b>Conjunto Empresarial:</b> {{estabelecimento.dados.COD_SBF}} - {{nomeSbf}}<br>
+                    <b>Grupo Empresarial:</b> {{estabelecimento.dados.COD_MASTER}} - {{nomeMaster}}<br>
+                    <b>Rede:</b> {{estabelecimento.dados.COD_REDE_LOJA}} - {{nomeRedeLoja}}<br>
+                    <b>Loja:</b> {{estabelecimento.dados.NRO_LOJA}}<br>
+                    <b>UF:</b> {{estabelecimento.dados.COD_TERRITORIO}} - {{nomeUf}}<br>
+                    <b>Cidade:</b> {{estabelecimento.dados.COD_CIDADE}} - {{nomeCidade}}<br>
+                    <b>Localizacao:</b> {{estabelecimento.dados.COD_LOCALIZACAO}} - {{desLocalizacaoLoja}}<br>
+                    <b>Shopping:</b> {{estabelecimento.dados.COD_SHOPPING}} - {{nomeShopping}}<br>
+                    <b>Efetua Venda?</b> {{estabelecimento.dados.IDC_EFETUA_VENDA}}<br>
+                    <b>Grupo preço:</b> {{estabelecimento.dados.COD_GRUPO_PRECO}} - {{desGrupoPreco}}<br>
+                    <b>Tipo atendimento:</b> {{estabelecimento.dados.IDT_TIP_ATEND}} - {{desTipoAtendimento}}<br>
+                    <b>Estab setorizado?</b> {{estabelecimento.dados.IDC_TEM_SETOR}}<br>
+                    <b>Formato:</b> {{estabelecimento.dados.COD_FORMATO_LOJA}} - {{nomeFormatoLoja}}<br>
+                    <b>Regiao:</b> {{estabelecimento.dados.COD_REGIAO_LOJA}} - {{nomeRegiaoLoja}}<br>
+                    <b>Localiz cidade:</b> {{estabelecimento.dados.COD_LOCALIZ_CIDADE}} - {{nomeLocalizacaoCidade}}<br>
+                    <b>Cond Econ:</b> {{estabelecimento.dados.COD_CONDICAO_ECON}} - {{nomeCondicaoEcon}}<br>
+                    <b>Clima:</b> {{estabelecimento.dados.COD_CLIMA_LOJA}} - {{nomeClimaLoja}}<br>
+                    <b>Data Inaugurac:</b> {{estabelecimento.dados.DAT_INAUGURACAO | date: 'dd/MM/yyyy'}}<br>
+                    <b>Data Fech.:</b> {{estabelecimento.dados.DAT_FECHAMENTO | date: 'dd/MM/yyyy'}}<br>
+                    <b>Area Bruta Venda(ABV):</b> {{estabelecimento.dados.QTD_METROS_QUADRAD}} m2<br>
+                    <b>Area Bruta Locada(ABL):</b> {{estabelecimento.dados.VLR_AREA_BRUTA}} m2<br>
+                    <b>Nome Localizacao (apelido):</b> {{estabelecimento.dados.NOM_LOCALIZACAO}}<br>
+                    <b>Loja pertencente ao novo mol?</b> {{estabelecimento.dados.IDT_NOVO_MOL}}<br>
+                    <b>Plano Comissão</b><br>
+                    <b>Considera Produto Comissionado?</b> {{estabelecimento.dados.IDT_PRODUTO_COMISS}}<br>
+                    <b>Considera Faixa de Comissão?</b> {{estabelecimento.dados.IDT_FAIXA_COMISSAO}}<br>
+                    <b>Desconsidera Devoluções?</b> {{estabelecimento.dados.IDT_DEVOLUCAO}}<br>
+            </mat-tab>
+            <mat-tab label="Tecnologia">
+                    <b>Cod. CPU:</b> {{estabelecimento.dados.COD_CPU}}<br>
+                    <b>Local entrega?</b> {{estabelecimento.dados.IDC_LOCAL_ENTREGA}}<br>
+                    <b>Tipo Sistema WMS:</b> {{estabelecimento.dados.IDT_TIP_SISTEMA}} - {{desTipoSistema}}<br>
+                    <b>Premier MG:</b> {{estabelecimento.dados.IDT_PREMIER_MG}}<br>
+                    <b>Estab. de Pesados?</b> {{estabelecimento.dados.IDT_CD_PESADOS}}<br>
+                    <b>Permitido Informar Qtd. na Venda?</b> {{estabelecimento.dados.IDT_INFORMA_QTD}}<br>
+                    <b>Permitido Cancelar Item na Venda?</b> {{estabelecimento.dados.IDT_CANCELA_ITEM}}<br>
+                    <b>Obrigatória Senha no Canc.Item?</b> {{estabelecimento.dados.IDT_SENHA_CAN_ITEM}}<br>
+                    <b>Sistema de Frente de Loja P2K?</b> {{estabelecimento.dados.IDT_LJ_P2K}}<br>
+                    <b>Sistema SAP?</b> {{estabelecimento.dados.IDT_SAP}}<br>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" color="primary" (click)="deletar()">Deletar</button>
+        </div>
+        <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" color="primary" (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+</div>

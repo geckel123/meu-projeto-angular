@@ -1,0 +1,32 @@
+<div *ngIf="(user$ | async) as user; else carregando">
+    <i class="fa fa-user-circle mr-1"></i>
+    <div style="width: 600px;" id="div">
+        <table class="table table-striped table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col-md-2" colspan="2">Funcionário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Matrícula</td>
+                    <td>{{ user.sub }}</td>
+                </tr>
+                <tr>
+                    <td>Nome</td>
+                    <td>{{ user.nome }}</td>
+                </tr>
+                <tr *ngIf="user.loja">
+                    <td>Loja</td>
+                    <td>{{ user.loja }}</td>
+                </tr>
+            </tbody>
+        </table>    
+        <!--button>Botão</button-->
+    </div>
+</div>
+<ng-template #carregando>
+    <span class="navbar-text">
+        Carregando...<input type="button" (click)="sendMsg()">
+    </span>
+</ng-template>

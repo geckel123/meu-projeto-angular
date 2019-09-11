@@ -1,0 +1,1173 @@
+<div class="container">
+    <a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de Estabelecimentos (inclusão)</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+    <form [formGroup]="estabelecimentoForm" (submit)="incluir()" autocomplete="off">   
+    <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Info Base">
+            <table>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width:50px;">
+                        <mat-form-field>
+                            <input matInput maxlength="4" placeholder="Código*" formControlName="COD_ESTABELECIMENT">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_ESTABELECIMENT').value?.length || 0}}/4</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_ESTABELECIMENT').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_ESTABELECIMENT').touched)"
+                                text="Código do Estabelecimento é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_ESTABELECIMENT').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_ESTABELECIMENT').touched)"
+                                text="Tamanho máximo é 4!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_ESTABELECIMENT').errors?.estabelecimentoJaExiste && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_ESTABELECIMENT').touched)"
+                                text="Estabelecimento já existe!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="40" placeholder="Descrição*" formControlName="DES_ESTABELECIMENT">
+                            <mat-hint align="end">{{estabelecimentoForm.get('DES_ESTABELECIMENT').value?.length || 0}}/40</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('DES_ESTABELECIMENT').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('DES_ESTABELECIMENT').touched)"
+                                text="Descrição do Estabelecimento é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('DES_ESTABELECIMENT').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('DES_ESTABELECIMENT').touched)"
+                                text="Tamanho máximo é 40!">
+                            </ap-vmessage>
+                            
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="14" placeholder="CNPJ*" formControlName="CGC_ESTABELECIMENT">
+                            <mat-hint align="end">{{estabelecimentoForm.get('CGC_ESTABELECIMENT').value?.length || 0}}/14</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('CGC_ESTABELECIMENT').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('CGC_ESTABELECIMENT').touched)"
+                                text="CNPJ do Estabelecimento é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('CGC_ESTABELECIMENT').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('CGC_ESTABELECIMENT').touched)"
+                                text="Tamanho máximo é 14!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('CGC_ESTABELECIMENT').errors?.cnpjInvalido && (estabelecimentoForm.submitted || estabelecimentoForm.get('CGC_ESTABELECIMENT').touched)"
+                                text="CNPJ inválido!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="30" placeholder="Logradouro*" formControlName="NOM_LOGRADOURO">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NOM_LOGRADOURO').value?.length || 0}}/30</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_LOGRADOURO').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_LOGRADOURO').touched)"
+                                text="Logradouro é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_LOGRADOURO').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_LOGRADOURO').touched)"
+                                text="Tamanho máximo é 30!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="6" placeholder="Número*" formControlName="NRO_ESTABELECIMENT">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NRO_ESTABELECIMENT').value?.length || 0}}/6</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ESTABELECIMENT').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ESTABELECIMENT').touched)"
+                                text="Número é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ESTABELECIMENT').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ESTABELECIMENT').touched)"
+                                text="Tamanho máximo é 6!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="10" placeholder="Complemento" formControlName="DES_COMPLEMENTO">
+                            <mat-hint align="end">{{estabelecimentoForm.get('DES_COMPLEMENTO').value?.length || 0}}/10</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('DES_COMPLEMENTO').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('DES_COMPLEMENTO').touched)"
+                                text="Tamanho máximo é 10!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="30" placeholder="Bairro*" formControlName="NOM_BAIRRO">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NOM_BAIRRO').value?.length || 0}}/30</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_BAIRRO').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_BAIRRO').touched)"
+                                text="Bairro é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_BAIRRO').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_BAIRRO').touched)"
+                                text="Tamanho máximo é 30!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>UF*</mat-label>
+                            <select matNativeControl formControlName="SGL_UF" (change)="mudaUf()">
+                            <option value="" selected disabled>Selecione</option>
+                            <option *ngFor="let uf of listaUf" [value]="uf.SGL_UF">{{uf.SGL_UF}} - {{uf.NOM_UF}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('SGL_UF').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('SGL_UF').touched)"
+                            text="UF é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="14" placeholder="Telefone" formControlName="NRO_TELEFONE">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NRO_TELEFONE').value?.length || 0}}/14</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_TELEFONE').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_TELEFONE').touched)"
+                                text="Tamanho máximo é 14!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_TELEFONE').errors?.minlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_TELEFONE').touched)"
+                                text="Tamanho mínimo é 10!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_TELEFONE').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_TELEFONE').touched)"
+                                text="Digite apenas número e sem espaço entre eles!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="8" placeholder="CEP" formControlName="COD_CEP">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_CEP').value?.length || 0}}/8</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CEP').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CEP').touched)"
+                                text="CEP é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CEP').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CEP').touched)"
+                                text="Tamanho máximo é 8!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CEP').errors?.minlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CEP').touched)"
+                                text="CEP deve ter 8 dígitos!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CEP').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CEP').touched)"
+                                text="Digite apenas número e sem espaço entre eles!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <mat-form-field>
+                            <input matInput [matAutocomplete]="auto" formControlName='COD_CIDADE_EST' id="inputCidade" placeholder="Cidade*" autocomplete="off" (change)="mudaCidade()">
+                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCidade" panelWidth="200">
+                                <mat-option *ngFor="let cidade of (filteredCidades | async)?.dados.listaRegistros" [value]="cidade">
+                                <span>{{ cidade.COD_CIDADE }} - {{ cidade.NOM_CIDADE }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CIDADE_EST').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CIDADE_EST').touched)"
+                                text="Cidade é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CIDADE_EST').errors?.naoEhCidade && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CIDADE_EST').touched)"
+                                text="Favor selecionar uma cidade!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('SGL_UF').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CIDADE_EST').touched)"
+                                text="UF é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="14" placeholder="Insc.Estadual*" formControlName="COD_INSCRIC_ESTADU">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_INSCRIC_ESTADU').value?.length || 0}}/14</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_INSCRIC_ESTADU').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSCRIC_ESTADU').touched)"
+                                text="Insc.Estadual é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_INSCRIC_ESTADU').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSCRIC_ESTADU').touched)"
+                                text="Tamanho máximo é 14!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.errors?.ieInvalida && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSCRIC_ESTADU').touched)"
+                                text="Insc.Estadual inválida!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="14" placeholder="Insc.Municipal*" formControlName="COD_INSC_MUNICIPAL">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_INSC_MUNICIPAL').value?.length || 0}}/14</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_INSC_MUNICIPAL').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSC_MUNICIPAL').touched)"
+                                text="Insc.Estadual é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_INSC_MUNICIPAL').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSC_MUNICIPAL').touched)"
+                                text="Tamanho máximo é 14!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="20" placeholder="No.junta comerc." formControlName="NRO_JUNTA_COMERCIA">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NRO_JUNTA_COMERCIA').value?.length || 0}}/20</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_JUNTA_COMERCIA').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_JUNTA_COMERCIA').touched)"
+                                text="Tamanho máximo é 20!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Dat.reg." formControlName="DAT_REGISTRO_ESTAB">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="15" placeholder="Nome fantasia*" formControlName="NOM_FANTASIA_ESTAB">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NOM_FANTASIA_ESTAB').value?.length || 0}}/15</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_FANTASIA_ESTAB').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_FANTASIA_ESTAB').touched)"
+                                text="Nome fantasia é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_FANTASIA_ESTAB').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_FANTASIA_ESTAB').touched)"
+                                text="Tamanho máximo é 15!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="30" placeholder="Titular" formControlName="NOM_TITULAR_ESTAB">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NOM_TITULAR_ESTAB').value?.length || 0}}/30</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_TITULAR_ESTAB').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_TITULAR_ESTAB').touched)"
+                                text="Tamanho máximo é 30!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="30" placeholder="Nome contador" formControlName="NOM_CONTADOR">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NOM_CONTADOR').value?.length || 0}}/30</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_CONTADOR').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_CONTADOR').touched)"
+                                text="Tamanho máximo é 30!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="20" placeholder="CRC contador" formControlName="COD_CRC_CONTADOR">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_CRC_CONTADOR').value?.length || 0}}/20</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CRC_CONTADOR').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CRC_CONTADOR').touched)"
+                                text="Tamanho máximo é 20!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>UF contador</mat-label>
+                            <select matNativeControl formControlName="SGL_UF_CRC_CONTAD">
+                                <option value="" selected disabled>Selecione</option>
+                                <option *ngFor="let uf of listaUf" [value]="uf.SGL_UF">{{uf.SGL_UF}} - {{uf.NOM_UF}}</option>
+                            </select>
+                        </mat-form-field>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <mat-label>Retaguarda?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_MATRIZ">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Segmento</mat-label>
+                            <select matNativeControl formControlName="COD_SEGMENTO">
+                            <option value="" selected disabled>Selecione</option>
+                            <option *ngFor="let segmento of listaSegmento" [value]="segmento.COD_SEGMENTO">{{segmento.COD_SEGMENTO}} - {{segmento.DES_SEGMENTO}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_SEGMENTO').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_SEGMENTO').touched)"
+                            text="Segmento é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="20" placeholder="Insc.suframa" formControlName="COD_INSCRI_SUFRAMA">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_INSCRI_SUFRAMA').value?.length || 0}}/20</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_INSCRI_SUFRAMA').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSCRI_SUFRAMA').touched)"
+                                text="Tamanho máximo é 20!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.errors?.suframaObrigatoria && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_INSCRI_SUFRAMA').touched)"
+                                text="O preenchimento da Insc.suframa é obrigatório para a uf=AM!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="20" placeholder="Rep.fiscal" formControlName="COD_REPART_FISCAL">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_REPART_FISCAL').value?.length || 0}}/20</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_REPART_FISCAL').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_REPART_FISCAL').touched)"
+                                text="Tamanho máximo é 20!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.errors?.repartFiscalObrigatoria && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_REPART_FISCAL').touched)"
+                                text="O preenchimento da Rep.fiscal é obrigatório para a uf=AM!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput [matAutocomplete]="auto2" formControlName='COD_MATRIZ' id="inputMatriz" placeholder="Cod Matriz*" autocomplete="off">
+                            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayMatriz" panelWidth="200">
+                                <mat-option *ngFor="let estabelecimento of (filteredEstabelecimentos | async)?.dados.listaRegistros" [value]="estabelecimento">
+                                <span>{{ estabelecimento.COD_ESTABELECIMENT }} - {{ estabelecimento.DES_ESTABELECIMENT }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_MATRIZ').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_MATRIZ').touched)"
+                                text="Cod Matriz é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_MATRIZ').errors?.naoEhEstabelecimento && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_MATRIZ').touched)"
+                                text="Favor selecionar um Cod Matriz!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Incluir ST no custo de entrada?*</mat-label><br>
+                        <mat-radio-group formControlName="IDT_CUSTO_ST">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDT_CUSTO_ST').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDT_CUSTO_ST').touched)"
+                            text="Custo ST é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-label>Log Rev: Utiliza rota de ida como rota de volta?*</mat-label><br>
+                        <mat-form-field>
+                            <select matNativeControl formControlName="IDT_LR_MESMAROTA">
+                                <option value="" selected>Selecione</option>
+                                <option value="S">Sim</option>
+                                <option value="N">Não</option>
+                                <option value="T">T</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.errors?.mesmaRotaObrigatoria"
+                            text="Mesma Rota é campo obrigatório caso seja uma loja!">
+                        </ap-vmessage>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.errors?.mesmaRotaNaoLoja"
+                            text="Preencha a Mesma Rota somente caso seja uma loja!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-label>CD funciona como CT*</mat-label><br>
+                        <mat-radio-group formControlName="IDT_CD_CT">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDT_CD_CT').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDT_CD_CT').touched)"
+                            text="CD CT é campo obrigatório!">
+                        </ap-vmessage>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.errors?.apenasCdCt && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDT_CD_CT').touched)"
+                            text="Apenas CD pode funcionar como CT!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-label>Versao NFE*</mat-label><br>
+                        <mat-form-field>
+                            <select matNativeControl formControlName="COD_VER_NFE">
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="3.10">NFE 3.10</option>
+                                <option value="4.00">NFE 4.00</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_VER_NFE').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_VER_NFE').touched)"
+                            text="Versao NFE é campo obrigatório!">
+                        </ap-vmessage>
+                    </td>
+                    <td style="vertical-align: top; width:550px"></td>
+                </tr>
+            </table>
+        </mat-tab>
+        <mat-tab label="Parâmetros">
+            <table>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width:150px;">
+                        <mat-form-field>
+                            <mat-label>Tipo Estabelecimento*</mat-label><br>
+                            <select matNativeControl formControlName="IDT_TIP_ESTAB">
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="D">D - Depósito</option>
+                                <option value="L">L - Loja</option>
+                                <option value="M">M - Matriz</option>
+                                <option value="V">V - Loja Virtual</option>
+                                <option value="S">S - Sac</option>
+                                <option value="E">E - Entreposto</option>
+                                <option value="C">C - CD</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDT_TIP_ESTAB').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDT_TIP_ESTAB').touched)"
+                            text="Tipo Estabelecimento é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="40" placeholder="Mensagem cabecalho cupom" formControlName="DES_MENS_CABECALHO">
+                            <mat-hint align="end">{{estabelecimentoForm.get('DES_MENS_CABECALHO').value?.length || 0}}/40</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('DES_MENS_CABECALHO').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('DES_MENS_CABECALHO').touched)"
+                                text="Tamanho máximo é 40!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="40" placeholder="Primeira mensagem cupom" formControlName="DES_MENS_PROMOC1">
+                            <mat-hint align="end">{{estabelecimentoForm.get('DES_MENS_PROMOC1').value?.length || 0}}/40</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('DES_MENS_PROMOC1').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('DES_MENS_PROMOC1').touched)"
+                                text="Tamanho máximo é 40!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="40" placeholder="Segunda  mensagem cupom" formControlName="DES_MENS_PROMOC2">
+                            <mat-hint align="end">{{estabelecimentoForm.get('DES_MENS_PROMOC2').value?.length || 0}}/40</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('DES_MENS_PROMOC2').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('DES_MENS_PROMOC2').touched)"
+                                text="Tamanho máximo é 40!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Efetua compras?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_FAZ_COMPRA">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_FAZ_COMPRA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_FAZ_COMPRA').touched)"
+                            text="Efetua compras é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Perc. negociacao entrada" formControlName="PER_NEGOC_ENTRADA">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('PER_NEGOC_ENTRADA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('PER_NEGOC_ENTRADA').touched)"
+                                text="Perc. negociacao entrada é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('PER_NEGOC_ENTRADA').errors?.max && (estabelecimentoForm.submitted || estabelecimentoForm.get('PER_NEGOC_ENTRADA').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('PER_NEGOC_ENTRADA').errors?.min && (estabelecimentoForm.submitted || estabelecimentoForm.get('PER_NEGOC_ENTRADA').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('PER_NEGOC_ENTRADA').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('PER_NEGOC_ENTRADA').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro dias negociacao pre-data" formControlName="NRO_DIAS_NEGOC_PRE">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').touched)"
+                                text="Nro dias negociacao pre-data é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').errors?.max && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').errors?.min && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_NEGOC_PRE').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Local cobranca?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_LOCAL_COBRANCA">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_LOCAL_COBRANCA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_LOCAL_COBRANCA').touched)"
+                            text="Local cobrança é campo obrigatório!">
+                        </ap-vmessage>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <mat-form-field>
+                            <input matInput placeholder="Limite maior atraso" formControlName="LIM_MAIOR_ATRASO">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('LIM_MAIOR_ATRASO').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('LIM_MAIOR_ATRASO').touched)"
+                                text="Limite maior atraso é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('LIM_MAIOR_ATRASO').errors?.max && (estabelecimentoForm.submitted || estabelecimentoForm.get('LIM_MAIOR_ATRASO').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('LIM_MAIOR_ATRASO').errors?.min && (estabelecimentoForm.submitted || estabelecimentoForm.get('LIM_MAIOR_ATRASO').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('LIM_MAIOR_ATRASO').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('LIM_MAIOR_ATRASO').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Cadast. cheques dep. imediato?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_CAD_CHEQUE">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_CAD_CHEQUE').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_CAD_CHEQUE').touched)"
+                            text="Cad cheque é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-label>Loja Franqueada?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_FRANQUEADA">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_FRANQUEADA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_FRANQUEADA').touched)"
+                            text="Loja Franqueada é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro Último Sequencial" formControlName="NRO_ULTIMO_SEQ">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULTIMO_SEQ').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULTIMO_SEQ').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULTIMO_SEQ').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULTIMO_SEQ').touched)"
+                                text="Último Sequencial é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro Último Cliente" formControlName="NRO_ULT_CLIENTE">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_CLIENTE').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_CLIENTE').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_CLIENTE').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_CLIENTE').touched)"
+                                text="Último Sequencial é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro Último Empresa" formControlName="NRO_ULT_EMPRESA">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_EMPRESA').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_EMPRESA').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_EMPRESA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_EMPRESA').touched)"
+                                text="Último Empresa é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro Último Contrato" formControlName="NRO_ULT_CONTRATO">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_CONTRATO').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_CONTRATO').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_CONTRATO').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_CONTRATO').touched)"
+                                text="Último Contrato é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro Último Protocolo" formControlName="NRO_ULT_PROTOCOLO">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_PROTOCOLO').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_PROTOCOLO').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ULT_PROTOCOLO').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ULT_PROTOCOLO').touched)"
+                                text="Último Protocolo é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <mat-form-field>
+                            <input matInput placeholder="Valor de Repasse" formControlName="VLR_REPASSE">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_REPASSE').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_REPASSE').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_REPASSE').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_REPASSE').touched)"
+                                text="Valor de Repasse é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="3" placeholder="Banco Depósito" formControlName="COD_BANCO_DEP">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_BANCO_DEP').value?.length || 0}}/3</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_BANCO_DEP').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_BANCO_DEP').touched)"
+                                text="Tamanho máximo é 3!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="4" placeholder="Agência Depósito" formControlName="COD_AGENCIA_DEP">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_AGENCIA_DEP').value?.length || 0}}/4</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_AGENCIA_DEP').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_AGENCIA_DEP').touched)"
+                                text="Tamanho máximo é 4!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="10" placeholder="Conta Depósito" formControlName="NRO_CONTA_DEP">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NRO_CONTA_DEP').value?.length || 0}}/10</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_CONTA_DEP').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_CONTA_DEP').touched)"
+                                text="Tamanho máximo é 10!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Franqueado</mat-label>
+                            <select matNativeControl formControlName="COD_FRANQUEADO">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let franqueado of listaFranqueado" [value]="franqueado.COD_FRANQUEADO">{{franqueado.COD_FRANQUEADO}} - {{franqueado.NOM_FRANQUEADO}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro dias maquineta imed" formControlName="NRO_DIAS_MAQ_IMED">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').touched)"
+                                text="Nro dias maquineta imed é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').errors?.max && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').errors?.min && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').touched)"
+                                text="Valores permitidos entre 0 e 100!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_DIAS_MAQ_IMED').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Captura e-mail cliente?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_CAPTURA_EMAIL">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </mat-tab>
+        <mat-tab label="Financeiro">
+            <table>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width:150px;">
+                        <mat-form-field>
+                            <input matInput placeholder="Valor limite sangria" formControlName="VLR_LIMITE_SANGRIA">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_LIMITE_SANGRIA').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_LIMITE_SANGRIA').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_LIMITE_SANGRIA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_LIMITE_SANGRIA').touched)"
+                                text="Valor limite sangria é campo obrigatório!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Valor abertura caixa" formControlName="VLR_ABERTURA_PDVS">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_ABERTURA_PDVS').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_ABERTURA_PDVS').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Valor limite ressuprimento" formControlName="VLR_LIMITE_RESSUP">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_LIMITE_RESSUP').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_LIMITE_RESSUP').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro Parcelas p/ Etq.Preco" formControlName="NRO_PARCELAS_ETQ">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_PARCELAS_ETQ').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_PARCELAS_ETQ').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Vlr Min Parcela Etq Preco" formControlName="VLR_MINIMO_ETQ">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_MINIMO_ETQ').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_MINIMO_ETQ').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <b>Códigos Scope Itautec(TEF):</b><br>
+                        <mat-form-field>
+                            <input matInput maxlength="4" placeholder="Empresa" formControlName="COD_EMPRESA_SCOPE">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_EMPRESA_SCOPE').value?.length || 0}}/4</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_EMPRESA_SCOPE').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_EMPRESA_SCOPE').touched)"
+                                text="Tamanho máximo é 4!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="4" placeholder="Filial" formControlName="COD_ESTAB_SCOPE">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_ESTAB_SCOPE').value?.length || 0}}/4</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_ESTAB_SCOPE').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_ESTAB_SCOPE').touched)"
+                                text="Tamanho máximo é 4!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <b>Sportcard:</b><br>
+                        <mat-form-field>
+                            <input matInput placeholder="Cod. Convenio CBO" formControlName="COD_CONVENIO_CBO">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CONVENIO_CBO').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CONVENIO_CBO').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="4" placeholder="Cod. Agencia" formControlName="COD_AGENCIA_BB">
+                            <mat-hint align="end">{{estabelecimentoForm.get('COD_AGENCIA_BB').value?.length || 0}}/4</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_AGENCIA_BB').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_AGENCIA_BB').touched)"
+                                text="Tamanho máximo é 4!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Nro. Estabelecimento" formControlName="NRO_ESTAB_BB">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_ESTAB_BB').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_ESTAB_BB').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Cod. Convenio PCA" formControlName="COD_CONVENIO_PCA">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CONVENIO_PCA').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CONVENIO_PCA').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Cod.Localidade(Bradescard)" formControlName="COD_LOC_BRADESCARD">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_LOC_BRADESCARD').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_LOC_BRADESCARD').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </mat-tab>
+        <mat-tab label="Comercial">
+            <table>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width:150px;">
+                        <mat-form-field>
+                            <mat-label>Conjunto Empresarial</mat-label>
+                            <select matNativeControl formControlName="COD_SBF">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let sbf of listaSbf" [value]="sbf.COD_SBF">{{sbf.COD_SBF}} - {{sbf.NOM_SBF}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Grupo Empresarial</mat-label>
+                            <select matNativeControl formControlName="COD_MASTER">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let master of listaMaster" [value]="master.COD_MASTER">{{master.COD_MASTER}} - {{master.NOM_MASTER}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Rede</mat-label>
+                            <select matNativeControl formControlName="COD_REDE_LOJA">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let redeLoja of listaRedeLoja" [value]="redeLoja.COD_REDE_LOJA">{{redeLoja.COD_REDE_LOJA}} - {{redeLoja.NOM_REDE_LOJA}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Loja" formControlName="NRO_LOJA">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NRO_LOJA').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('NRO_LOJA').touched)"
+                                text="Digite apenas números!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="UF" formControlName="COD_TERRITORIO" readonly>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Cidade" formControlName="COD_CIDADE" readonly>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Localizacao</mat-label>
+                            <select matNativeControl formControlName="COD_LOCALIZACAO">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let localizacao of listaLocalizacao" [value]="localizacao.COD_LOCALIZACAO">{{localizacao.COD_LOCALIZACAO}} - {{localizacao.DES_LOCALIZACAO}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput [matAutocomplete]="auto3" formControlName='COD_SHOPPING' id="inputShopping" placeholder="Shopping" autocomplete="off">
+                            <mat-autocomplete #auto3="matAutocomplete" [displayWith]="displayShopping" panelWidth="200">
+                                <mat-option *ngFor="let shopping of (filteredShoppings | async)?.dados.listaRegistros" [value]="shopping">
+                                <span>{{ shopping.COD_SHOPPING }} - {{ shopping.NOM_SHOPPING }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_SHOPPING').errors?.naoEhShopping && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_SHOPPING').touched)"
+                                text="Favor selecionar um Shopping!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Efetua Venda?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_EFETUA_VENDA">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_EFETUA_VENDA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_EFETUA_VENDA').touched)"
+                            text="Efetua Venda é campo obrigatório!">
+                        </ap-vmessage>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <mat-form-field>
+                            <mat-label>Grupo preço</mat-label>
+                            <select matNativeControl formControlName="COD_GRUPO_PRECO">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let grupoPreco of listaGrupoPreco" [value]="grupoPreco.COD_GRUPO">{{grupoPreco.COD_GRUPO}} - {{grupoPreco.DES_GRUPO}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Tipo atendimento</mat-label>
+                            <select matNativeControl formControlName="IDT_TIP_ATEND">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let tipoAtend of listaTipoAtend" [value]="tipoAtend.IDT_TIP_ATEND">{{tipoAtend.IDT_TIP_ATEND}} - {{tipoAtend.DES_IDT_TIP_ATEND}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDT_TIP_ATEND').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDT_TIP_ATEND').touched)"
+                            text="Tipo atendimento é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-label>Estab setorizado?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_TEM_SETOR">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_TEM_SETOR').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_TEM_SETOR').touched)"
+                            text="Estab setorizado é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Formato</mat-label>
+                            <select matNativeControl formControlName="COD_FORMATO_LOJA">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let formatoLoja of listaFormatoLoja" [value]="formatoLoja.COD_FORMATO_LOJA">{{formatoLoja.COD_FORMATO_LOJA}} - {{formatoLoja.NOM_FORMATO_LOJA}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_FORMATO_LOJA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_FORMATO_LOJA').touched)"
+                            text="Formato é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Região</mat-label>
+                            <select matNativeControl formControlName="COD_REGIAO_LOJA">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let regiaoLoja of listaRegiaoLoja" [value]="regiaoLoja.COD_REGIAO_LOJA">{{regiaoLoja.COD_REGIAO_LOJA}} - {{regiaoLoja.NOM_REGIAO_LOJA}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_REGIAO_LOJA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_REGIAO_LOJA').touched)"
+                            text="Região é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Localiz cidade</mat-label>
+                            <select matNativeControl formControlName="COD_LOCALIZ_CIDADE">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let localizCidade of listaLocalizCidade" [value]="localizCidade.COD_LOCALIZ_CIDADE">{{localizCidade.COD_LOCALIZ_CIDADE}} - {{localizCidade.NOM_LOCALIZ_CIDADE}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_LOCALIZ_CIDADE').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_LOCALIZ_CIDADE').touched)"
+                            text="Localiz cidade é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Cond Econ</mat-label>
+                            <select matNativeControl formControlName="COD_CONDICAO_ECON">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let condEcon of listaCondEcon" [value]="condEcon.COD_CONDICAO_ECON">{{condEcon.COD_CONDICAO_ECON}} - {{condEcon.NOM_CONDICAO_ECON}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_CONDICAO_ECON').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CONDICAO_ECON').touched)"
+                            text="Cond Econ é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Clima</mat-label>
+                            <select matNativeControl formControlName="COD_CLIMA_LOJA">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let climaLoja of listaClimaLoja" [value]="climaLoja.COD_CLIMA_LOJA">{{climaLoja.COD_CLIMA_LOJA}} - {{climaLoja.NOM_CLIMA_LOJA}}</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('COD_CLIMA_LOJA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CLIMA_LOJA').touched)"
+                            text="Clima é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker2" placeholder="Data Inaugurac" formControlName="DAT_INAUGURACAO">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </td>
+                    <td style="vertical-align: top; width:60px"></td>
+                    <td style="vertical-align: top; width:150px">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker3" placeholder="Data Fech." formControlName="DAT_FECHAMENTO">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Area Bruta Venda(ABV)" formControlName="QTD_METROS_QUADRAD">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('QTD_METROS_QUADRAD').errors?.max && (estabelecimentoForm.submitted || estabelecimentoForm.get('QTD_METROS_QUADRAD').touched)"
+                                text="Valores permitidos entre 0 e 9999,99!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('QTD_METROS_QUADRAD').errors?.min && (estabelecimentoForm.submitted || estabelecimentoForm.get('QTD_METROS_QUADRAD').touched)"
+                                text="Valores permitidos entre 0 e 9999,99!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('QTD_METROS_QUADRAD').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('QTD_METROS_QUADRAD').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput placeholder="Area Bruta Locada(ABL)" formControlName="VLR_AREA_BRUTA">
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_AREA_BRUTA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_AREA_BRUTA').touched)"
+                                text="Area Bruta Locada é campo obrigatório!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_AREA_BRUTA').errors?.max && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_AREA_BRUTA').touched)"
+                                text="Valores permitidos entre 0 e 9999,99!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_AREA_BRUTA').errors?.min && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_AREA_BRUTA').touched)"
+                                text="Valores permitidos entre 0 e 9999,99!">
+                            </ap-vmessage>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('VLR_AREA_BRUTA').errors?.pattern && (estabelecimentoForm.submitted || estabelecimentoForm.get('VLR_AREA_BRUTA').touched)"
+                                text="Digite apenas números e vírgula!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <input matInput maxlength="20" placeholder="Nome Localizacao (apelido)" formControlName="NOM_LOCALIZACAO">
+                            <mat-hint align="end">{{estabelecimentoForm.get('NOM_LOCALIZACAO').value?.length || 0}}/20</mat-hint>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('NOM_LOCALIZACAO').errors?.maxlength && (estabelecimentoForm.submitted || estabelecimentoForm.get('NOM_LOCALIZACAO').touched)"
+                                text="Tamanho máximo é 20!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Loja pertencente ao novo mol?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_NOVO_MOL">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <b>Plano Comissão</b><br>
+                        <mat-label>Considera Produto Comissionado?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_PRODUTO_COMISS">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Considera Faixa de Comissão?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_FAIXA_COMISSAO">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Desconsidera Devoluções?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_DEVOLUCAO">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                    </td>
+                </tr>
+            </table>
+        </mat-tab>
+        <mat-tab label="Tecnologia">
+            <table>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; width:300px;">
+                        <mat-form-field>
+                            <input matInput [matAutocomplete]="auto4" formControlName='COD_CPU' id="inputCpu" placeholder="CPU" autocomplete="off">
+                            <mat-autocomplete #auto4="matAutocomplete" [displayWith]="displayCpu">
+                                <mat-option *ngFor="let cpu of (filteredCpus | async)?.dados.listaRegistros" [value]="cpu">
+                                <span>{{ cpu.COD_CPU }} - {{ cpu.NOME_CPU }}</span>
+                                </mat-option>
+                            </mat-autocomplete>
+                            <ap-vmessage
+                                *ngIf="estabelecimentoForm.get('COD_CPU').errors?.naoEhCpu && (estabelecimentoForm.submitted || estabelecimentoForm.get('COD_CPU').touched)"
+                                text="Favor selecionar uma CPU!">
+                            </ap-vmessage>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Local entrega?</mat-label><br>
+                        <mat-radio-group formControlName="IDC_LOCAL_ENTREGA">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDC_LOCAL_ENTREGA').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDC_LOCAL_ENTREGA').touched)"
+                            text="Local entrega é campo obrigatório!">
+                        </ap-vmessage>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Tipo Sistema WMS</mat-label>
+                            <select matNativeControl formControlName="IDT_TIP_SISTEMA">
+                                <option value="" selected>Selecione</option>
+                                <option *ngFor="let tipoSistema of listaTipoSistema" [value]="tipoSistema.IDT_TIP_SISTEMA">{{tipoSistema.IDT_TIP_SISTEMA}} - {{tipoSistema.DES_TIPO_SISTEMA}}</option>
+                            </select>
+                        </mat-form-field>
+                        <br>
+                        <mat-label>Premier MG</mat-label><br>
+                        <mat-radio-group formControlName="IDT_PREMIER_MG">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Estab. de Pesados?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_CD_PESADOS">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Permitido Informar Qtd. na Venda?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_INFORMA_QTD">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Permitido Cancelar Item na Venda?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_CANCELA_ITEM">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Obrigatória Senha no Canc.Item?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_SENHA_CAN_ITEM">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Sistema de Frente de Loja P2K?</mat-label><br>
+                        <mat-radio-group formControlName="IDT_LJ_P2K">
+                            <mat-radio-button value="S" style="margin-left: 16px;">Sim</mat-radio-button>
+                            <mat-radio-button value="N" style="margin-left: 16px;">Não</mat-radio-button>
+                        </mat-radio-group>
+                        <br>
+                        <mat-label>Sistema SAP?</mat-label><br>
+                        <mat-form-field>
+                            <select matNativeControl formControlName="IDT_SAP">
+                                <option value="" selected>Selecione</option>
+                                <option value="S">Sim</option>
+                                <option value="N">Não</option>
+                                <option value="I">Intermediário</option>
+                            </select>
+                        </mat-form-field>
+                        <ap-vmessage
+                            *ngIf="estabelecimentoForm.get('IDT_SAP').errors?.required && (estabelecimentoForm.submitted || estabelecimentoForm.get('IDT_SAP').touched)"
+                            text="Sistema SAP é campo obrigatório!">
+                        </ap-vmessage>
+                    </td>
+                </tr>
+            </table>
+        </mat-tab>
+    </mat-tab-group>
+    <br>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+            <button type="submit" class="btn btn-primary" color="primary">Incluir</button>
+        </div>
+        <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" color="primary" (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+    </form>
+</div>

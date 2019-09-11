@@ -1,0 +1,66 @@
+<div class="container">
+<a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de Shoppings</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+    <div class="container">
+        <table width="100%">
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <input matInput placeholder="Buscar shoppings" #input style="text-transform:uppercase">
+                    </mat-form-field>
+                </td>
+                <td style="text-align: right;vertical-align: bottom;">
+                    <a [routerLink]="['inclusao']">
+                        <i class="material-icons">
+                            add
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 hoverTable" style="width: 100%">
+            <ng-container matColumnDef="nro">
+                <th mat-header-cell *matHeaderCellDef> No. Shopping </th>
+                <td mat-cell *matCellDef="let element"> {{element.COD_SHOPPING}} </td>
+            </ng-container>
+            
+                <!-- Name Column -->
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.NOM_SHOPPING}} </td>
+            </ng-container>
+            
+                <!-- Weight Column -->
+            <ng-container matColumnDef="nome_resumido">
+                <th mat-header-cell *matHeaderCellDef> Nome Resumido </th>
+                <td mat-cell *matCellDef="let element"> {{element.NOM_RES_SHOPPING}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element" align="right"> 
+                    <a [routerLink]="['visualizacao',element.COD_SHOPPING]">
+                        <i class="material-icons">
+                            visibility
+                        </i>
+                    </a>
+                    &nbsp;
+                    <a [routerLink]="['alteracao',element.COD_SHOPPING]">
+                        <i class="material-icons">
+                            edit
+                        </i>
+                    </a>
+                    &nbsp;
+                    <a [routerLink]="['delecao',element.COD_SHOPPING]">
+                        <i class="material-icons">
+                            delete
+                        </i>
+                    </a>
+                    
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" [length]="dataSource.total$ | async" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

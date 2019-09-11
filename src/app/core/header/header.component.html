@@ -1,0 +1,76 @@
+<header class="sticky-top">
+    <nav class="navbar navbar-light bg-white">
+        <a class="navbar-brand">
+            <div class="row">
+            <div class="col">
+                <i class="material-icons md-44"
+                    tabindex="0" 
+                    (keyup.space)="menu.toggle()" 
+                    (click)="menu.toggle()">menu</i>
+            </div>
+            <div class="col">
+                <img src="assets/img/topo.png" alt="Welcome">
+            </div>
+            </div>
+            <br>
+        </a>
+        <ap-menu #menu>
+            <ul class="list-unstyled">
+                <li><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">home</i></div>&nbsp;<div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['main']">Home</a></div></div></li>
+                <!--li><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">print</i></div><div class="col-10 px-lg-1">Relatórios</div></div>
+                    <ul>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">attach_money</i></div><div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['relatorios/relatorio-desemp-vendas']">Desempenho de Vendedores</a></div></div></li>
+                    </ul>
+                </li>
+                <li><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">search</i></div><div class="col-10 px-lg-1">Consultas</div></div>
+                    <ul>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">receipt</i></div><div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['consultas/consulta-cupons-troca']">Consulta de Cupons para Troca</a></div></div></li>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">store</i></div><div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['consultas/consulta-resultado-loja']">Consulta Resultado Loja</a></div></div></li>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">shopping_cart</i></div><div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['consultas/consulta-vendas']">Consulta de Vendas</a></div></div></li>
+                    </ul>
+                </li-->
+                <li><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">list</i></div>&nbsp;<div class="col-10 px-lg-1">Cadastros</div></div>
+                    <ul>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">store</i></div>&nbsp;<div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['cadastros/cadastro-estabelecimentos']">Cadastro de Estabelecimentos</a></div></div></li>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"><i class="material-icons">local_mall</i></div>&nbsp;<div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['cadastros/cadastro-shoppings']">Cadastro de Shoppings</a></div></div></li>
+                        <li style="list-style-type:none"><div class="row"><div class="col-1 px-lg-1"> <i class="material-icons">desktop_windows</i></div>&nbsp;<div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="['cadastros/cadastro-pdvs-nfce']">Cadastro de PDVs NFCE</a></div></div></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                    <div class="row">
+                        <div class="col-1 px-lg-1">
+                            <i class="material-icons">{{node.icon}}</i>
+                        </div>&nbsp;
+                        <div class="col-10 px-lg-1"><a (click)="menu.toggle()" [routerLink]="[node.url]">{{node.name}}</a>
+                        </div>
+                    </div>
+                </mat-tree-node>
+                <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                    <div class="row" style="flex-wrap: inherit" matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
+                        <div class="col-1 px-lg-1">
+                            <i class="material-icons">{{node.icon}}</i>
+                        </div>
+                        <div class="col-10 px-lg-1">{{node.name}}</div>
+                    </div>
+                </mat-tree-node>
+            </mat-tree-->
+        </ap-menu>
+        <div *ngIf="(user$ | async) as user; else login" style="text-align: center">
+            <i class="fa fa-user-circle mr-1"></i>
+            <a class="ml-2">{{ user.sub }}</a><br>
+            <a (click)="logout()" href="">(Logout)</a>
+        </div>
+        <ng-template #login>
+            <span class="navbar-text">
+                <a [routerLink]="['']">Faça login!</a>
+            </span>
+        </ng-template>
+    </nav>
+    <div class="fixed-top">
+        <ap-loading></ap-loading>
+        <ap-alert></ap-alert>
+    </div>
+    
+</header>

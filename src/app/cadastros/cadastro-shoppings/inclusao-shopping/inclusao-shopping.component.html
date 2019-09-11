@@ -1,0 +1,58 @@
+<div class="container">
+        <a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de Shoppings (inclusão)</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+        <div class="container">
+            <form [formGroup]="shoppingForm" (submit)="incluir()">
+                <mat-form-field>
+                    <input matInput maxlength="2" placeholder="Código" formControlName="COD_SHOPPING">
+                    <mat-hint align="end">{{shoppingForm.get('COD_SHOPPING').value?.length || 0}}/2</mat-hint>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('COD_SHOPPING').errors?.required && (shoppingForm.submitted || shoppingForm.get('COD_SHOPPING').touched)"
+                        text="Código do Shopping é campo obrigatório!">
+                    </ap-vmessage>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('COD_SHOPPING').errors?.maxlength && (shoppingForm.submitted || shoppingForm.get('COD_SHOPPING').touched)"
+                        text="Tamanho máximo é 2!">
+                    </ap-vmessage>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('COD_SHOPPING').errors?.shoppingJaExiste"
+                        text="Shopping já existe!">
+                    </ap-vmessage>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput maxlength="30" placeholder="Nome" formControlName="NOM_SHOPPING">
+                    <mat-hint align="end">{{shoppingForm.get('NOM_SHOPPING').value?.length || 0}}/30</mat-hint>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('NOM_SHOPPING').errors?.required && (shoppingForm.submitted || shoppingForm.get('NOM_SHOPPING').touched)"
+                        text="Nome do Shopping é campo obrigatório!">
+                    </ap-vmessage>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('NOM_SHOPPING').errors?.maxlength && (shoppingForm.submitted || shoppingForm.get('NOM_SHOPPING').touched)"
+                        text="Tamanho máximo é 30!">
+                    </ap-vmessage>
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                    <input matInput maxlength="10" placeholder="Nome Resumido" formControlName="NOM_RES_SHOPPING">
+                    <mat-hint align="end">{{shoppingForm.get('NOM_RES_SHOPPING').value?.length || 0}}/10</mat-hint>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('NOM_RES_SHOPPING').errors?.required && (shoppingForm.submitted || shoppingForm.get('NOM_RES_SHOPPING').touched)"
+                        text="Nome Resumido do Shopping é campo obrigatório!">
+                    </ap-vmessage>
+                    <ap-vmessage
+                        *ngIf="shoppingForm.get('NOM_RES_SHOPPING').errors?.maxlength && (shoppingForm.submitted || shoppingForm.get('NOM_RES_SHOPPING').touched)"
+                        text="Tamanho máximo é 10!">
+                    </ap-vmessage>
+                </mat-form-field>
+                <br>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group mr-2" role="group">
+                        <button type="submit" class="btn btn-primary" color="primary">Incluir</button>
+                    </div>
+                    <div class="btn-group mr-2" role="group">
+                            <button type="button" class="btn btn-primary" color="primary" (click)="voltar()">Voltar</button>
+                    </div>
+                </div>
+                </form>         
+        </div>
+    </div>

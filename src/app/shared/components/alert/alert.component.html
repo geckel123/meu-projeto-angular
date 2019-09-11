@@ -1,0 +1,8 @@
+<div *ngFor="let alert of alerts" class="{{ getAlertClass(alert) }} alert-opacity text-center wrapper" id="alertOverlay">
+    {{ alert.message }}
+    <div class="buttons">
+        <a (click)="fechar(alert)"><i class="material-icons md-18">
+        close
+        </i></a>
+    </div>
+</div>

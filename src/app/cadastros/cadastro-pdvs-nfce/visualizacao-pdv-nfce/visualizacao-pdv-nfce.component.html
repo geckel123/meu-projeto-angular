@@ -1,0 +1,27 @@
+<div class="container">
+    <a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de PDVs NFCE (visualização)</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+    <div class="container" *ngIf="(pdvNfce$ | async) as pdvNfce">
+        <b>Estabelecimento:</b> {{pdvNfce.dados.COD_ESTAB}}<br>
+        <b>PDV:</b> {{pdvNfce.dados.NRO_PDV}}<br>
+        <b>Código Ativação SAT:</b> {{pdvNfce.dados.COD_ATIVACAO_SAT}}<br>
+        <b>Código Modelo SAT:</b> {{pdvNfce.dados.COD_MODELO_SAT}}<br>
+        <b>Nome Usuário NFCE:</b> {{pdvNfce.dados.NOM_USUARIO_NFCE}}<br>
+        <b>Senha Usuário NFCE:</b> {{pdvNfce.dados.DES_SENHA_NFCE}}<br>
+        <b>Nro Último NFCE:</b> {{pdvNfce.dados.NRO_ULTIMO_NFCE}}<br>
+        <b>Série NFCE:</b> {{pdvNfce.dados.COD_SERIE_NFCE}}<br>
+        <b>Data Última Manut:</b> {{pdvNfce.dados.DAT_ULT_MANUT|date: 'dd/MM/yyyy HH:mm:ss'}}<br>
+        <b>Mla Última Manut:</b> {{pdvNfce.dados.MLA_ULT_MANUT}}<br>
+        <b>Tipo Ambiente:</b> {{pdvNfce.dados.IDT_TIPO_AMBIENTE}}<br>
+        <b>Série SAT:</b> {{pdvNfce.dados.COD_SERIE_SAT}}<br>
+        <b>Série Equip SAT:</b> {{pdvNfce.dados.SERIE_EQUIP_SAT}}<br>
+        <b>Host Agent SAT:</b> {{pdvNfce.dados.AGENT_SATHOST}}<br>
+        <b>Porta Agent SAT:</b> {{pdvNfce.dados.AGENT_SATPORTA}}<br>
+        <b>Tipo Agent:</b> {{pdvNfce.dados.AGENT_TIPO}}<br>
+    </div>
+    <br>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" color="primary" (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+</div>

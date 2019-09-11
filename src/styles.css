@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+.material-icons.md-12 {
+    font-size: 12px; 
+    color: #ff0000
+}
+
+	/* Define the default color for all the table rows */
+	.hoverTable tbody tr{
+		background: #ffffff;
+	}
+	/* Define the hover highlight color for the table row */
+    .hoverTable tbody tr:hover {
+          background-color: #f3f3f3;
+    }
+

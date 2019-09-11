@@ -1,0 +1,123 @@
+<div class="container">
+    <a class="navbar-brand" style="margin-right: 0">Consulta Resultado de Loja</a>&nbsp;<a href="http://midia.centauro.com.br/ti/portaldeloja/resultadodaloja/consultaresultadoloja.mp4" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+    <form #form="ngForm" [formGroup]='defaultForm' (submit)="search()">
+        <div style="max-width:500px">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <label for="inputDatIni">Data Inicial</label><a style="text-decoration:none;cursor: default;"><i class="material-icons md-12" data-toggle="tooltip" title="Intervalo de data de no máximo 90 dias">help_outline</i></a>
+            <input type="date" class="form-control" id="inputDatIni" formControlName='dataIniInput' placeholder="De">
+            <ap-vmessage
+                *ngIf="defaultForm.get('dataIniInput').errors?.required && (form.submitted || defaultForm.get('dataIniInput').touched)"
+                text="Data inicial é campo obrigatório!">
+            </ap-vmessage>
+            <ap-vmessage
+                *ngIf="defaultForm.errors?.dateRange && (form.submitted || (defaultForm.get('dataFimInput').touched && defaultForm.get('dataIniInput').touched))"
+                text="Período máximo permitido é de {{maximoDiasPeriodo}} dias!">
+            </ap-vmessage>
+            <ap-vmessage
+                *ngIf="defaultForm.errors?.dateRangeInvalid && (form.submitted || (defaultForm.get('dataFimInput').touched && defaultForm.get('dataIniInput').touched))"
+                text="Data inicial deve ser menor que a data final!">
+            </ap-vmessage>
+            </div>
+            <div class="form-group col-md-6">
+            <label for="inputDatFim">Data Final</label>
+            <input type="date" class="form-control" id="inputDatFim"  formControlName='dataFimInput' placeholder="Até">
+            <ap-vmessage
+                *ngIf="defaultForm.get('dataFimInput').errors?.required && (form.submitted || defaultForm.get('dataFimInput').touched)"
+                text="Data final é campo obrigatório!">
+            </ap-vmessage>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputLoja">Loja</label><a style="text-decoration:none;cursor: default;"><i class="material-icons md-12" data-toggle="tooltip" title="Digite 3 dígitos do código da loja ou parte do nome do shopping">help_outline</i></a>
+            <input matInput [matAutocomplete]="auto" formControlName='lojaInput' class="form-control" type="text" id="inputLoja" placeholder="Ex: 0171">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let loja of (filteredLojas | async)?.results" [value]="loja.codEstabeleciment">
+                <span>{{ loja.codEstabeleciment }} - {{ loja.shopping }}</span>
+                </mat-option>
+            </mat-autocomplete>
+            <ap-vmessage
+                *ngIf="defaultForm.get('lojaInput').errors?.required && (form.submitted || defaultForm.get('lojaInput').touched)"
+                text="Loja é campo obrigatório!">
+            </ap-vmessage>
+        </div>
+        <button type="submit" class="form-control btn btn-primary">Consultar</button>
+        </div>
+    </form>
+    <br>
+    <p class="text-center text-muted" *ngIf="noresult">
+        A consulta não retornou nenhum resultado
+    </p>
+    <div class="container" *ngIf="results">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col-md-2">Operação</th>
+                            <th scope="col-md-2">R$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let result of results.operacaoVendasTauros">
+                            <td>{{ result.operacao }}</td>
+                            <td>{{ result.valor | currency:' ' }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-dark">
+                            <td>Total</td>
+                            <td>{{ results.totalOperacao.valor | currency:' ' }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped table-sm">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col-md-2">Setor</th>
+                            <th scope="col-md-2">R$</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let result of results.setorVendasTauros">
+                            <td>{{ result.operacao }}</td>
+                            <td>{{ result.valor | currency:' ' }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-dark">
+                            <td>Total*</td>
+                            <td>{{ results.totalSetor.valor | currency:' ' }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                *Não estão inclusos valores de giftcard neste total.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-sm">
+                    <tr class="table-secondary">
+                        <td>
+                            Total Comissionado*
+                        </td>
+                        <td>
+                            {{ results.totalComissionado.valor | currency:'R$ ' }}
+                        </td>
+                    </tr>
+                    <tr class="table-secondary">
+                        <td>
+                            Total Não Comissionado*
+                        </td>
+                        <td>
+                            {{ results.totalNaoComissionado.valor | currency:'R$ ' }}
+                        </td>
+                    </tr>
+                </table>
+                *Não estão inclusos valores de giftcard nestes totais.
+            </div>
+        </div>
+    </div>
+</div>

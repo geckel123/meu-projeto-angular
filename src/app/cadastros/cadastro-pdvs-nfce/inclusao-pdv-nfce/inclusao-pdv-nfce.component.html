@@ -1,0 +1,183 @@
+<div class="container">
+        <a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de PDVs NFCE (inclusão)</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+        <div class="container">
+            <form [formGroup]="pdvNfceForm" (submit)="incluir()">
+                <table>
+                    <tr>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; width:150px;">
+                            <mat-form-field>
+                                <input matInput [matAutocomplete]="auto" formControlName='COD_ESTAB' placeholder="Cód Estab" autocomplete="off">
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayEstab" panelWidth="200">
+                                    <mat-option *ngFor="let estabelecimento of (filteredEstabelecimentos | async)?.dados.listaRegistros" [value]="estabelecimento">
+                                    <span>{{ estabelecimento.COD_ESTABELECIMENT }} - {{ estabelecimento.DES_ESTABELECIMENT }}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_ESTAB').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('COD_ESTAB').touched)"
+                                    text="Cod Estab é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_ESTAB').errors?.naoEhEstabelecimento && (pdvNfceForm.submitted || pdvNfceForm.get('COD_ESTAB').touched)"
+                                    text="Favor selecionar um Cod Estab!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput placeholder="Nro PDV" formControlName="NRO_PDV">
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NRO_PDV').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('NRO_PDV').touched)"
+                                    text="Nro PDV é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NRO_PDV').errors?.pattern && (pdvNfceForm.submitted || pdvNfceForm.get('NRO_PDV').touched)"
+                                    text="Digite apenas números!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NRO_PDV').errors?.pdvNfceJaExiste && (pdvNfceForm.submitted || pdvNfceForm.get('NRO_PDV').touched)"
+                                    text="Pdv NFCE já existe!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="30" placeholder="Cód Ativação SAT" formControlName="COD_ATIVACAO_SAT">
+                                <mat-hint align="end">{{pdvNfceForm.get('COD_ATIVACAO_SAT').value?.length || 0}}/30</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_ATIVACAO_SAT').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('COD_ATIVACAO_SAT').touched)"
+                                    text="Tamanho máximo é 30!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput placeholder="Cód Modelo SAT" formControlName="COD_MODELO_SAT">
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_MODELO_SAT').errors?.pattern && (pdvNfceForm.submitted || pdvNfceForm.get('COD_MODELO_SAT').touched)"
+                                    text="Digite apenas números!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="40" placeholder="Usuário NFCE" formControlName="NOM_USUARIO_NFCE">
+                                <mat-hint align="end">{{pdvNfceForm.get('NOM_USUARIO_NFCE').value?.length || 0}}/40</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NOM_USUARIO_NFCE').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('NOM_USUARIO_NFCE').touched)"
+                                    text="Usuário NFCE é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NOM_USUARIO_NFCE').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('NOM_USUARIO_NFCE').touched)"
+                                    text="Tamanho máximo é 40!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="40" placeholder="Senha NFCE" formControlName="DES_SENHA_NFCE">
+                                <mat-hint align="end">{{pdvNfceForm.get('DES_SENHA_NFCE').value?.length || 0}}/40</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('DES_SENHA_NFCE').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('DES_SENHA_NFCE').touched)"
+                                    text="Senha NFCE é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('DES_SENHA_NFCE').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('DES_SENHA_NFCE').touched)"
+                                    text="Tamanho máximo é 40!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput placeholder="Nro último NFCE" formControlName="NRO_ULTIMO_NFCE">
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NRO_ULTIMO_NFCE').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('NRO_ULTIMO_NFCE').touched)"
+                                    text="Nro último NFCE é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('NRO_ULTIMO_NFCE').errors?.pattern && (pdvNfceForm.submitted || pdvNfceForm.get('NRO_ULTIMO_NFCE').touched)"
+                                    text="Digite apenas números!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                        </td>
+                        <td style="vertical-align: top; width:60px"></td>
+                        <td style="vertical-align: top; width:150px">
+                            <mat-form-field>
+                                <input matInput placeholder="Cód série NFCE" formControlName="COD_SERIE_NFCE">
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_SERIE_NFCE').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('COD_SERIE_NFCE').touched)"
+                                    text="Cód série NFCE é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_SERIE_NFCE').errors?.pattern && (pdvNfceForm.submitted || pdvNfceForm.get('COD_SERIE_NFCE').touched)"
+                                    text="Digite apenas números!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput placeholder="Idt tipo ambiente" formControlName="IDT_TIPO_AMBIENTE">
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('IDT_TIPO_AMBIENTE').errors?.required && (pdvNfceForm.submitted || pdvNfceForm.get('IDT_TIPO_AMBIENTE').touched)"
+                                    text="Idt tipo ambiente é campo obrigatório!">
+                                </ap-vmessage>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('IDT_TIPO_AMBIENTE').errors?.pattern && (pdvNfceForm.submitted || pdvNfceForm.get('IDT_TIPO_AMBIENTE').touched)"
+                                    text="Digite apenas números!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="3" placeholder="Cód Série SAT" formControlName="COD_SERIE_SAT">
+                                <mat-hint align="end">{{pdvNfceForm.get('COD_SERIE_SAT').value?.length || 0}}/3</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('COD_SERIE_SAT').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('COD_SERIE_SAT').touched)"
+                                    text="Tamanho máximo é 3!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="25" placeholder="Série Equip SAT" formControlName="SERIE_EQUIP_SAT">
+                                <mat-hint align="end">{{pdvNfceForm.get('SERIE_EQUIP_SAT').value?.length || 0}}/25</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('SERIE_EQUIP_SAT').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('SERIE_EQUIP_SAT').touched)"
+                                    text="Tamanho máximo é 25!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="15" placeholder="Agent SAT host" formControlName="AGENT_SATHOST">
+                                <mat-hint align="end">{{pdvNfceForm.get('AGENT_SATHOST').value?.length || 0}}/15</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('AGENT_SATHOST').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('AGENT_SATHOST').touched)"
+                                    text="Tamanho máximo é 15!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput placeholder="Agent SAT porta" formControlName="AGENT_SATPORTA">
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('AGENT_SATPORTA').errors?.pattern && (pdvNfceForm.submitted || pdvNfceForm.get('AGENT_SATPORTA').touched)"
+                                    text="Digite apenas números!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput maxlength="5" placeholder="Agent tipo" formControlName="AGENT_TIPO">
+                                <mat-hint align="end">{{pdvNfceForm.get('AGENT_TIPO').value?.length || 0}}/5</mat-hint>
+                                <ap-vmessage
+                                    *ngIf="pdvNfceForm.get('AGENT_TIPO').errors?.maxlength && (pdvNfceForm.submitted || pdvNfceForm.get('AGENT_TIPO').touched)"
+                                    text="Tamanho máximo é 5!">
+                                </ap-vmessage>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+                <div class="btn-toolbar" role="toolbar">
+                    <div class="btn-group mr-2" role="group">
+                        <button type="submit" class="btn btn-primary" color="primary">Incluir</button>
+                    </div>
+                    <div class="btn-group mr-2" role="group">
+                        <button type="button" class="btn btn-primary" color="primary" (click)="voltar()">Voltar</button>
+                    </div>
+                </div>
+            </form>         
+        </div>
+    </div>

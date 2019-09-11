@@ -1,0 +1,19 @@
+.alert-opacity {
+    opacity: .9;
+}
+
+.wrapper {
+    position: absolute;
+    width: 100%;
+    top:0;
+    left:0;
+}
+.buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+
+a { color: inherit; cursor: pointer}

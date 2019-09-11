@@ -1,0 +1,17 @@
+<div class="container">
+    <a class="navbar-brand" style="margin-right: unset; padding: 0">Cadastro de Shoppings (deleção)</a>&nbsp;<a href="#" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+    <div class="container" *ngIf="(shopping$ | async) as shopping">
+        <b>Shopping*:</b> {{shopping.dados.COD_SHOPPING}}<br>
+        <b>Nome*:</b> {{shopping.dados.NOM_SHOPPING}}<br>
+        <b>Nome Resumido*:</b> {{shopping.dados.NOM_RES_SHOPPING}}<br>
+    </div>
+    <br>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" color="primary" (click)="deletar()">Deletar</button>
+        </div>
+        <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" color="primary" (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+</div>

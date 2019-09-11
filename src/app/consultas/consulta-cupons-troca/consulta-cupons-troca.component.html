@@ -1,0 +1,178 @@
+<div class="container">
+<a class="navbar-brand" style="margin-right: unset; padding: 0">Consulta de Cupons para Troca</a>&nbsp;<a href="http://midia.centauro.com.br/ti/portaldeloja/consultacupomtroca/consultacupomtroca.mp4" target="_blank" style="text-decoration:none" data-toggle="tooltip" title="Material de Treinamento"><i class="material-icons md-12">help_outline</i></a><br><br>
+
+    <form #form="ngForm" [formGroup]='defaultForm' (submit)="search()">
+        <div style="max-width:800px">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputDatIni">Data Inicial</label><a style="text-decoration:none;cursor: default;"><i class="material-icons md-12" data-toggle="tooltip" title="Intervalo de data de no máximo 31 dias">help_outline</i></a>
+                <input type="date" class="form-control" id="inputDatIni" formControlName='dataIniInput' placeholder="De">
+                <ap-vmessage
+                    *ngIf="defaultForm.get('dataIniInput').errors?.required && (form.submitted || defaultForm.get('dataIniInput').touched)"
+                    text="Data inicial é campo obrigatório!">
+                </ap-vmessage>
+                <ap-vmessage
+                    *ngIf="defaultForm.errors?.dateRange && (form.submitted || (defaultForm.get('dataFimInput').touched && defaultForm.get('dataIniInput').touched))"
+                    text="Período máximo permitido é de {{maximoDiasPeriodo}} dias!">
+                </ap-vmessage>
+                <ap-vmessage
+                    *ngIf="defaultForm.errors?.dateRangeInvalid && (form.submitted || (defaultForm.get('dataFimInput').touched && defaultForm.get('dataIniInput').touched))"
+                    text="Data inicial deve ser menor que a data final!">
+                </ap-vmessage>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputDatFim">Data Final</label>
+                <input type="date" class="form-control" id="inputDatFim"  formControlName='dataFimInput' placeholder="Até">
+                <ap-vmessage
+                    *ngIf="defaultForm.get('dataFimInput').errors?.required && (form.submitted || defaultForm.get('dataFimInput').touched)"
+                    text="Data final é campo obrigatório!">
+                </ap-vmessage>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputProduto">Produto</label><a style="text-decoration:none;cursor: default"><i class="material-icons md-12" data-toggle="tooltip" title="Código SKU ou EAN do Produto">help_outline</i></a>
+                <input matInput [matAutocomplete]="auto2" formControlName='produtoInput' class="form-control" type="text" id="inputProduto" placeholder="Ex: 845831292022">
+                <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let produto of (filteredProdutos | async)?.results" [value]="produto.codProduto">
+                        <span>{{ produto.codProduto }} - {{ produto.desProduto }}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="inputCpfCnpjCliente">CPF/CNPJ Cliente</label><a style="text-decoration:none;cursor: default"><i class="material-icons md-12" data-toggle="tooltip" title="CPF ou CNPJ do cliente">help_outline</i></a>
+                <input formControlName='cpfCnpjClienteInput' class="form-control" type="text" id="inputCpfCnpjCliente">
+                <ap-vmessage
+                    *ngIf="defaultForm.errors?.produtoCpf && (form.submitted || (defaultForm.get('produtoInput').touched && defaultForm.get('cpfCnpjClienteInput').touched))"
+                    text="Produto ou CPF deve ser preenchido!">
+                </ap-vmessage>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputLoja">Loja</label><a style="text-decoration:none;cursor: default"><i class="material-icons md-12" data-toggle="tooltip" title="Digite 3 dígitos do código da loja ou parte do nome do shopping">help_outline</i></a>
+                <input matInput [matAutocomplete]="auto" formControlName='lojaInput' class="form-control" type="text" id="inputLoja" placeholder="Ex: 0171">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                    <mat-option *ngFor="let loja of (filteredLojas | async)?.results" [value]="loja.codEstabeleciment">
+                    <span>{{ loja.codEstabeleciment }} - {{ loja.shopping }}</span>
+                    </mat-option>
+                </mat-autocomplete>
+                <ap-vmessage
+                    *ngIf="defaultForm.get('lojaInput').errors?.required && (form.submitted || defaultForm.get('lojaInput').touched)"
+                    text="Loja é campo obrigatório!">
+                </ap-vmessage>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <button type="submit" class="form-control btn btn-primary">Consultar</button>
+        </div>
+        
+        </div>
+    </form>
+    <br>
+    <p class="text-center text-muted" *ngIf="noresult">
+        A consulta não retornou nenhum resultado
+    </p>
+    <div class="container" *ngIf="results">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container legend">
+                    <div class="container">
+                        <div class="row row-no-gutters cabecalho-table border border-dark">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1">Loja</div>
+                            <div class="col-sm-1">PDV</div>
+                            <div class="col-sm-1">NSU</div>
+                            <div class="col-sm-3">Data e Hora</div>
+                            <div class="col-sm-3">Produto</div>
+                            <div class="col-sm-2">Qtd. SKU</div>
+                            
+                        </div>
+                    </div>
+                    <div class="container" *ngFor="let result of results">
+                        <div class="row row-no-gutters linha-table border border-dark" [title]="'Valor Venda: '+ (result.vlrVenda | currency:'R$ ') + ' | ' + 'Valor Produto: '+ (result.vlrProduto | currency:'R$ ') ">
+                            <div class="col-sm-1"><a (click)="mostra(result)"><i class="material-icons" >more_horiz</i></a></div>
+                            <div class="col-sm-1">{{ result.codEstab }}</div>
+                            <div class="col-sm-1">{{ result.nroPdv }}</div>
+                            <div class="col-sm-1">{{ result.nsu }}</div>
+                            <div class="col-sm-3">{{ result.dataHora }}</div>
+                            <!--td>{{ result.vlrProduto | currency:'R$' }}</td>
+                            <td>{{ result.vlrVenda | currency:'R$' }}</td-->
+                            <div class="col-sm-3">{{ result.codProduto }}</div>
+                            <div class="col-sm-2">{{ result.qtdItem }}</div>
+                        </div>
+                        <div class="row row-no-gutters">
+                            <div class="col-sm-12" style="display:none" [id]="result.codEstab + '_' + result.nroSeqVenda">
+                                <div class="container" *ngIf="result.listItensVenda">
+                                    <div class="row row-no-gutters cabecalho-table border border-dark">
+                                        <div class="col-sm-1">Sit</div>
+                                        <div class="col-sm-3">Cod Produto</div>
+                                        <div class="col-sm-3">Cor</div>
+                                        <div class="col-sm-2">Tamanho</div>
+                                        <div class="col-sm-3">Preço</div>
+                                    </div>
+                                    <div class="row row-no-gutters linha-table border border-dark" *ngFor="let itemVenda of result.listItensVenda">
+                                        <div class="col-sm-1">
+                                            {{itemVenda.idcCancelado}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{itemVenda.codProduto}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{itemVenda.descricaoCor}}
+                                        </div>
+                                        <div class="col-sm-2">
+                                            {{itemVenda.desResTamanho}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{itemVenda.prcUnitario | currency:'R$ ' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container" *ngIf="result.listVendaTef">
+                                    <div class="row row-no-gutters cabecalho-table border border-dark">
+                                        <div class="col-sm-3">Transação (NSU)</div>
+                                        <div class="col-sm-3">Parcelas</div>
+                                        <div class="col-sm-2">Valor</div>
+                                        <div class="col-sm-2">Cod Controle</div>
+                                        <div class="col-sm-2">Cupom Tef</div>
+                                    </div>
+                                    <div class="row row-no-gutters linha-table border border-dark" *ngFor="let vendaTef of result.listVendaTef">
+                                        <div class="col-sm-3">
+                                            {{vendaTef.nroSeqTransacao}}
+                                        </div>
+                                        <div class="col-sm-3">
+                                            {{vendaTef.nroParcelas}}
+                                        </div>
+                                        <div class="col-sm-2">
+                                            {{vendaTef.vlrTransacao | currency:'R$ '}}
+                                        </div>
+                                        <div class="col-sm-2">
+                                            {{vendaTef.nroControle}}
+                                        </div>
+                                        <div class="col-sm-2">
+                                            {{vendaTef.nroCupomTef }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container" *ngIf="result.listReceb">
+                                    <div class="row row-no-gutters cabecalho-table border border-dark">
+                                        <div class="col-sm-8">Plano Recebimento</div>
+                                        <div class="col-sm-4">Valor</div>
+                                    </div>
+                                    <div class="row row-no-gutters linha-table border border-dark" *ngFor="let receb of result.listReceb">
+                                        <div class="col-sm-8">
+                                            {{ receb.planoVenda }}
+                                        </div>
+                                        <div class="col-sm-4">
+                                            {{ receb.vlrReceb | currency:'R$ ' }}
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
