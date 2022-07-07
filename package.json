@@ -31,7 +31,7 @@
     "jquery.cookie": "^1.4.1",
     "jwt-decode": "^2.2.0",
     "material-design-icons": "^3.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "rxjs": "^6.5.2",
     "socket.io": "^2.2.0",
     "stacktrace-js": "^2.0.0",
